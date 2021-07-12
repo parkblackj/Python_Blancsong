@@ -4,6 +4,7 @@ from datetime import date, datetime, timedelta
 app = Flask(__name__)
 app.debug = True
 
+
 app.config.update(
     SECRET_KEY="sadfsdfsadf",
     SESSION_COOKIE_NAME="pyweb_flask_session",
