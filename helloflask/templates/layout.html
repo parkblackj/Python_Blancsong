@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+</head>
+<body>
+    <h1>{%block title%}여기가 타이틀이에요{%endblock%} -Layout Title</h1>
+    <div class="section">{%block section %}여기는 셰션입니다{%endblock%}</div>
+    {%block footer%}
+    <p>&copy : Copyrighy...</p>
+    {%endblock%}
+    <h1>{%block title2%}{%endblock%} -Layout Title2</h1>
+</body>
+</html>

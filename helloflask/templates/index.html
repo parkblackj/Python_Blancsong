@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jinja Test Page</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+
+    <h1>Jinja Test : {{title}}</h1>
+    <hr>
+
+    <div>{{mu}}</div>
+    <pre>
+        한글 ttt
+        {%-if true-%}
+            mmm 
+        {%-endif-%} kkk
+    </pre>
+    <hr>
+
+    <ul>
+        {%for item in lst%}
+            <li>{{item[0]}}: {{item[1]}}</li>
+        {%endfor%}
+    </ul>
+
+    <hr>
+
+    <ul>
+        {%for title,name,isshow in lst if not isshow%}
+            <li class={{loop.cycle("aaa","bbbb")}}>{{title}}: {{name}} - {{loop.last}}</li>
+        {%else%}
+            <li>There is no data</li>
+        {%endfor%}
+    </ul>
+
+    <hr>
+    <ul>
+        {%for rank,title,name,hide,ref in lst2 recursive%}
+        <li>
+            {{title}}:{{name}}
+            <ul class="sub">{{loop(ref)}}</ul>
+        </li>
+        {%endfor%}
+    </ul>
+
+    <hr>
+    <ul>
+        {%for nav in navs recursive%}
+        <li>
+            <a href="{{nav.url |e}}">{{nav.title}} - {{loop.depth}}</a>
+            {%if nav.children%}
+            <ul class="{%if loop.depth != 1 %} font-sm font-bold {%endif%}">{{loop(nav.children)}}</ul>
+            {%endif%}
+        </li>
+        {%endfor%}
+    </ul>
+
+
+</body>
+</html>
