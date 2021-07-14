@@ -1,0 +1,66 @@
+{% macro forms_input(type="text", id="inp",name="inp",value="",class="")%}
+    <input type="{{type}}" 
+        id="{{id}}" 
+        name="{{name}}" 
+        value="{{value}}" 
+        class="form-control{{class}}" >
+{% endmacro %}
+
+{% macro forms_radio(id="r1",name="rdo",type="radio",value="val",text="RadioTest1",class="") %}
+    <form class="contanier">
+        <div class = "form-group">
+            <div class="form-check">
+                <input class="form-check-input {{class}}"
+                    id = "{{id}}"
+                    name="{{name}}"
+                    type="{{type}}"
+                    value="{{value}}">
+                <label for="r1" class="form-check-lable">{{text}}</label>
+            </div>
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro forms_radios(lst,class="") %}
+    <form class="contanier">
+        <div class = "form-group">  
+        {% for r in lst %}
+            <div class="form-check">  
+                <input class="form-check-input {{class}}"
+                    type="radio" 
+                    name="{{r.name}}"
+                    id="{{r.id}}"
+                    value="{{r.value}}"
+                    {{r.checked}}>
+                <label for="{{r.id}}" class="form-check-lable">{{r.text}}</label>
+            </div>
+        {% endfor %}
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro forms_checkbox(d) %}
+<form class="contanier">
+    <div class = "form-check">  
+        <input class="form-check-input"  
+                type="checkbox" 
+                id="{{d.id}}"
+                {{d.checked}}>
+            <label for="{{d.id}}" class="form-check-lable">{{d.text}}</label>
+        </div>
+    </div>
+</form>
+{% endmacro %}
+
+{% macro forms_select(lst) %}
+<form class="contanier">
+    <div class = "form-gruop">  
+        <select class="custom-select"> 
+            <option select>Open this select menu</option> 
+            {% for d in lst %} 
+                <option value="{{d.value}}"{% if selected %}selected{% endif %}>{{d.text}}</option> 
+            {% endfor %}
+        </select>
+    </div>
+</form>
+{% endmacro %}

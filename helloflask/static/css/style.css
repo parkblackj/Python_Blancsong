@@ -1,0 +1,22 @@
+.form-check {
+  margin-bottom: 10px;
+  padding-left: 5rem;
+}
+.custom-control {
+  margin-left: 50px;
+}
+
+body {
+  margin-top: 60px;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+.font-sm {
+  font-size: 0.9rem;
+}
+
+.bbb {
+  color: red;
+}

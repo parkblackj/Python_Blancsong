@@ -11,6 +11,31 @@ app.config.update(
 )
 
 
+class FormInput:
+    def __init__(self, id, name, value, checked, text):
+        self.id = id
+        self.name = name
+        self.value = value
+        self.checked = checked
+        self.text = text
+
+
+@app.route("/")
+def apps():
+    rds = []
+    for i in [1, 2, 3]:
+        id = "r"+str(i)
+        name = "radiotest"
+        value = i
+        checked = ""
+        if i == 2:
+            checked = "checked"
+        text = "RadioTest"+str(i)
+        p = rds.append(FormInput(id, name, value, checked, text))
+
+    return render_template("app.html", ttt="TestTTT", radioList=rds)
+
+
 @app.route("/main")
 def main():
     return render_template("main.html")
