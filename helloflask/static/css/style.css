@@ -1,3 +1,11 @@
+tr > :first-child {
+  color: red;
+}
+
+tr > :last-child {
+  color: blue;
+}
+
 .form-check {
   margin-bottom: 10px;
   padding-left: 5rem;

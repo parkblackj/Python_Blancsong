@@ -1,4 +1,26 @@
-{% macro forms_input(type="text", id="inp",name="inp",value="",class="")%}
+{% macro forms_cal(mm,sdt,edt) %}
+<div class="container text-center">
+    <h1>{{mm}}월</h1>
+    <table class="table table-bordered">
+    <thead>
+      {% for w in "일월화수목금토" %}<th>{{w}}</th>{% endfor %}
+    </thead>
+  
+    <tbody>
+    {% for row in range(sdt,edt) | batch(7,"&nbsp;") %}
+      <tr>
+        {% for col in row %}
+          <td>{% if (col|int) <= 0 %}&nbsp;{% else %}{{col | safe}}{% endif %}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+  </div>
+{% endmacro %}
+
+
+{% macro forms_input(type="text", id="inp",name="inp",value="",class="") %}
     <input type="{{type}}" 
         id="{{id}}" 
         name="{{name}}" 
@@ -63,4 +85,46 @@
         </select>
     </div>
 </form>
+{% endmacro %}
+
+{% macro forms_modal(id,title,icon="",isshowfooter=True,ok_fn="") %}
+    <!-- Modal -->
+<div
+class="modal fade"
+id="{{id}}"
+tabindex="-1"
+aria-hidden="true"
+>
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h3 class="modal-title">
+          {% if icon %}
+            <i class="{{icon}}"><strong>{{title}}</strong></i>
+          {% endif %}
+      </h3>
+      <button
+        type="button"
+        class="btn-close"
+        data-mdb-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+        {{caller()}}
+    </div>
+
+    {% if isshowfooter %}
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+        Close
+      </button>
+      <button type="button" onclick="{{ok_fn}}" class="btn btn-primary">Save changes</button>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
 {% endmacro %}

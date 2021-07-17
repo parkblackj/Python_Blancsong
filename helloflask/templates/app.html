@@ -7,29 +7,49 @@
 
 {% block test %}
 
+  {{ fm.forms_cal(mm,sdt,edt) }}
+
+    <p> {{ today|ymd|safe }}</p>
+    <p> {{ today|simpledate|safe }}</p>
+    <p> {{ 3089|filesizeformat }}</p>
+
     <p>{{cm.test_macro("TTTTTTTT")}}</p>
     <p>{{test_macro("QQQQQQ")}}</p>
 
   {% call(x) cm.test_macro2("Hong",'bbb') %}
     <p>This is app.html.call block=><i>{{x}}</i></p>
-    {{fm.forms_input()}}
+        {{fm.forms_input()}}
   {% endcall %}
 
   
   {{ fm.forms_radios(radioList) }}
 
-  <br>
+  <hr>
   
   {{ fm.forms_radio() }}
 
-  <br>
+  <hr>
 
   {{ fm.forms_checkbox( dict(id="chk1",text="checkbox1",checked="checked") ) }}
 
-  <br>
+  <hr>
 
   {{ fm.forms_select( [dict(value="1",text="one",selected=False) ,dict(value="2",text="two",selected=True)] ) }}
 
+  <hr>
+
+  <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#mdl1">
+  Open modal for</button>
+
+  {% call fm.forms_modal("mdl1" , "Test Modeal", "fab fa-500px",True,"fn_test()") %}
+    <h3>Modal Body</h3>
+    <script>
+      function fn_test(){
+        alert('QQQQQQQQQQQ')
+        closeModal("mdl1");
+      };
+    </script>
+  {% endcall %}
   
 {% endblock %}
 

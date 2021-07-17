@@ -1,5 +1,7 @@
 from flask import Flask, request, Response, make_response, session, render_template, Markup
 from datetime import date, datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 
 app = Flask(__name__)
 app.debug = True
@@ -32,8 +34,33 @@ def apps():
             checked = "checked"
         text = "RadioTest"+str(i)
         p = rds.append(FormInput(id, name, value, checked, text))
+        now = "2021-07-17 17:30"
+        d = datetime.strptime("2021-07-01", "%Y-%m-%d")
+        nextmonth = d + relativedelta(month=1)
+        sdt = d.weekday() * -1
+        mm = d.month
+        edt = (nextmonth - timedelta(1)).day + 1
 
-    return render_template("app.html", ttt="TestTTT", radioList=rds)
+    return render_template("app.html", sdt=sdt, mm=mm, edt=edt, ttt="TestTTT", radioList=rds, today=now)
+
+
+@app.template_filter('ymd')
+def datetime_ymd(dt, fmt='%y-%m-%d'):
+    if isinstance(dt, date):
+        return "<strong>%s</strong>" % dt.strftime(fmt)
+    else:
+        return dt
+
+
+@app.template_filter('simpledate')
+def simpledate(at):
+    if not isinstance(at, date):
+        at = datetime.strptime(at, "%Y-%m-%d %H:%M")
+    if (datetime.now() - at).days < 1:
+        fmt = "%H:%M"
+    else:
+        fmt = "%m:%d"
+    return "<strong>%s</strong>" % at.strftime(fmt)
 
 
 @app.route("/main")
