@@ -22,6 +22,35 @@ class FormInput:
         self.text = text
 
 
+def make_date(dt, fmt):
+    if not isinstance(dt, date):
+        dt = datetime.strptime(dt, fmt)
+        return dt
+
+    else:
+        return dt
+
+
+@app.template_filter("sdt")
+def sdt(dt, fmt="%Y-%m-%d"):
+    d = make_date(dt, fmt)
+    wd = d.weekday()
+    return 1 if wd == 6 else wd*-1
+
+
+@app.template_filter("month")
+def month(dt, fmt="%Y-%m-%d"):
+    d = make_date(dt, fmt)
+    return d.month
+
+
+@app.template_filter("edt")
+def edt(dt, fmt="%Y-%m-%d"):
+    d = make_date(dt, fmt)
+    nextmonth = d + relativedelta(months=1)
+    return (nextmonth - timedelta(1)).day + 1
+
+
 @app.route("/")
 def apps():
     rds = []
@@ -36,12 +65,8 @@ def apps():
         p = rds.append(FormInput(id, name, value, checked, text))
         now = "2021-07-17 17:30"
         d = datetime.strptime("2021-07-01", "%Y-%m-%d")
-        nextmonth = d + relativedelta(month=1)
-        sdt = d.weekday() * -1
-        mm = d.month
-        edt = (nextmonth - timedelta(1)).day + 1
-
-    return render_template("app.html", sdt=sdt, mm=mm, edt=edt, ttt="TestTTT", radioList=rds, today=now)
+        year = request.args.get("year", date.today().year, int)
+    return render_template("app.html", year=year, ttt="TestTTT", radioList=rds, today=now)
 
 
 @app.template_filter('ymd')

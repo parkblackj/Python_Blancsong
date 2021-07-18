@@ -1,13 +1,13 @@
-{% macro forms_cal(mm,sdt,edt) %}
+{% macro forms_cal(dt) %}
 <div class="container text-center">
-    <h1>{{mm}}월</h1>
+    <h3>{{dt | month}}월</h3>
     <table class="table table-bordered">
     <thead>
       {% for w in "일월화수목금토" %}<th>{{w}}</th>{% endfor %}
     </thead>
   
     <tbody>
-    {% for row in range(sdt,edt) | batch(7,"&nbsp;") %}
+    {% for row in range(dt | sdt, dt | edt) | batch(7,"&nbsp;") %}
       <tr>
         {% for col in row %}
           <td>{% if (col|int) <= 0 %}&nbsp;{% else %}{{col | safe}}{% endif %}</td>
@@ -16,7 +16,7 @@
     {% endfor %}
     </tbody>
     </table>
-  </div>
+</div>
 {% endmacro %}
 
 
